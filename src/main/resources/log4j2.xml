@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+
+    <Appenders>
+        <RollingFile
+                name="LogFile"
+                fileName="Logs/hippodrome.log"
+                filePattern="Logs/hippodrome.%d{yyyy-MM-dd}.log"
+                ignoreExceptions="false">
+            <PatternLayout>
+                <Pattern>%highlight{%d [%t] %-5level: %msg%n%throwable}{FATAL=white, ERROR=red, WARN=bright_blue, INFO=black, DEBUG=bright_green, TRACE=blue} %d{yyyy-MM-dd HH:mm:ss} %-5p %c: %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5">
+                <Delete basePath="Logs" maxDepth="2">
+                    <IfFileName glob="hippodrome.*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="LogFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
